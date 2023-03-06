@@ -1,6 +1,6 @@
 
 pkgname=throttled
-pkgver=0.7
+pkgver=0.9.2
 pkgrel=4
 pkgdesc="Workaround for Intel throttling issues in Linux."
 arch=('any')
@@ -10,7 +10,7 @@ depends=('python-dbus' 'python-psutil' 'python-gobject')
 conflicts=('lenovo-throttling-fix-git' 'lenovo-throttling-fix')
 replaces=('lenovo-throttling-fix')
 backup=('etc/throttled.conf')
-source=("git+https://github.com/Hyper-KVM/throttled.git#branch=openrc")
+source=("git+https://github.com/animeavi/throttled.git")
 sha256sums=('SKIP')
 
 
@@ -22,7 +22,6 @@ build() {
 package() {
   cd "${srcdir}/throttled/"
   install -Dm644 etc/throttled.conf "$pkgdir"/etc/throttled.conf
-  install -Dm644 systemd/throttled.service "$pkgdir"/usr/lib/systemd/system/throttled.service
   install -Dm755 throttled.py "$pkgdir"/usr/lib/$pkgname/throttled.py
   install -Dm755 openrc/throttled "$pkgdir/etc/init.d/throttled"
   install -Dm755 mmio.py "$pkgdir"/usr/lib/$pkgname/mmio.py
